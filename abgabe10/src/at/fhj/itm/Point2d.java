@@ -1,5 +1,6 @@
 package at.fhj.itm;
-class Point2d {
+
+public class Point2d {
 	private boolean debug;
 	protected double px;
 	protected double py;
