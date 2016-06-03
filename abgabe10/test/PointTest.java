@@ -1,8 +1,6 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import com.sun.javafx.geom.Point2D;
-
 import at.fhj.itm.Point2d;
 
 public class PointTest {
