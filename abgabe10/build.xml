@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project name="uebung1 demo project" default="test">
+	<property name="src.java" value="${basedir}/src/"></property>
+	<property name="src.junit" value="${basedir}/test/"></property>
+	
+	<property name="libs" value="${basedir}/libs/"></property>
+	
+	<property name="target" value="${basedir}"></property>
+	<property name="target.java" value="build/java/"></property>
+	<property name="target.junit" value="build/junit"/>
+	<property name="target.testreports" value="build/testreports"/>
+	<property name="target.jar" value="build/jar"/>		
+	
+	<path id="externalLibs">
+		<pathelement location="${libs}/junit-4.10.jar" />
+	</path>
+	
+	<fileset id="javaCode" dir="${src.java}">
+		<include name="**/*.java"/>
+	</fileset>
+
+	<fileset id="junitTestCode" dir="${src.junit}">
+		<include name="**/*Test.java"/>
+	</fileset>
+	
+	<target name="prepare" description="prepare folder structure for compiling classes and generating documentation">
+		<mkdir dir="${target.java}" />
+		<mkdir dir="${target.junit}" />
+    </target>
+	
+	<target name="clean">
+        <delete dir="build"/>
+    </target>
+	
+	<target name="compile" depends="prepare" description="compiles java sources">
+		<!-- compile java sources -->
+		<javac srcdir="${src.java}" destdir="${target.java}" includeantruntime="false" />
+		<javac srcdir="${src.junit}" destdir="${target.junit}" includeantruntime="false">
+			<classpath>
+				<pathelement location="${target.java}"/>
+				<path refid="externalLibs" />
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="test" depends="compile" description="testing the java source code" >
+		<delete dir="${target.testreports}" />
+		<mkdir dir="${target.testreports}"/>
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${target.java}"/>
+				<pathelement location="${target.junit}"/>
+				<path refid="externalLibs"/>
+			</classpath>
+			
+			<batchtest todir="${target.testreports}">
+				<fileset refid="junitTestCode"/>
+			</batchtest>
+			<formatter type="plain"/>
+		</junit>
+	</target>
+</project>
