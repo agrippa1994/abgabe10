@@ -1,13 +1,21 @@
 package at.fhj.itm;
+
 import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import at.fhj.itm.Point2d;
 
 public class PointTest {
 	
-	Point2d pt1 = new Point2d ();
-	Point2d pt2 = new Point2d(4.0, 3.0);
+	Point2d pt1, pt2;
+	
+	@Before
+	public void setup() {
+		pt1 = new Point2d ();
+		pt2 = new Point2d(4.0, 3.0);
+	}
 	
 	@Test
 	public void testDistanceFrom() {	
